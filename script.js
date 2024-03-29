@@ -1,9 +1,8 @@
 function redirectToTwitter(partida) {
-  var mensagem = "Acabou de assistir a partida " + partida;
-  var imagemUrl = "https://raw.githubusercontent.com/unkuninho/futeboltracker/main/fcbarcelonaxrealmadrid.jpg";
-
-  // Abra a página de composição do tweet com a mensagem e a URL da imagem
-  var tweetUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(mensagem) + "&url=" + encodeURIComponent(imagemUrl);
+    var mensagem = "Acabou de assistir a partida " + partida;
+    var imagem = "https://github.com/unkuninho/futeboltracker/blob/main/fcbarcelonaxrealmadrid.jpg?raw=true"; // URL direto da imagem hospedada
   
-  window.open(tweetUrl, "_blank");
+    var tweetUrl = "https://twitter.com/compose/tweet?text=" + encodeURIComponent(mensagem) + "&url=" + encodeURIComponent(imagem);
+    
+    window.open(tweetUrl, "_blank");
 }
