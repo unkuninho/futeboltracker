@@ -1,16 +1,16 @@
 window.addEventListener("load", function() {
     // Array de informações das partidas
     var partidas = [
-        { data: new Date("2024-05-14"), time1: "Internacional", time2: "Bahia", campeonato: "Campeonato Brasileiro", poster: "poster1.jpg" },
-        { data: new Date("2024-05-14"), time1: "Cruzeiro", time2: "Botafogo", campeonato: "Campeonato Brasileiro", poster: "poster2.jpg" },
-        { data: new Date("2024-05-14"), time1: "Vitória", time2: "Palmeiras", campeonato: "Campeonato Brasileiro", poster: "poster3.jpg" },
-        { data: new Date("2024-05-14"), time1: "Fluminense", time2: "Bragantino", campeonato: "Campeonato Brasileiro", poster: "poster4.jpg" },
-        { data: new Date("2024-05-14"), time1: "Vasco da Gama", time2: "Grêmio", campeonato: "Campeonato Brasileiro", poster: "poster5.jpg" },
-        { data: new Date("2024-05-14"), time1: "Corinthians", time2: "Atlético-MG", campeonato: "Campeonato Brasileiro", poster: "poster6.jpg" },
-        { data: new Date("2024-05-14"), time1: "São Paulo", time2: "Fortaleza", campeonato: "Campeonato Brasileiro", poster: "poster7.jpg" },
-        { data: new Date("2024-05-14"), time1: "Athletico-PR", time2: "Cuiabá", campeonato: "Campeonato Brasileiro", poster: "poster8.jpg" },
-        { data: new Date("2024-05-14"), time1: "Atlético-GO", time2: "Flamengo", campeonato: "Campeonato Brasileiro", poster: "poster9.jpg" },
-        { data: new Date("2024-05-14"), time1: "Criciúma", time2: "Juventude", campeonato: "Campeonato Brasileiro", poster: "poster10.jpg" }
+        { data: new Date("2024-05-14"), time1: "Internacional", time2: "Bahia", campeonato: "Campeonato Brasileiro", poster: "poster1.jpg", imagem_twitter: "partida1.jpg" },
+        { data: new Date("2024-05-14"), time1: "Cruzeiro", time2: "Botafogo", campeonato: "Campeonato Brasileiro", poster: "poster2.jpg", imagem_twitter: "partida2.jpg" },
+        { data: new Date("2024-05-14"), time1: "Vitória", time2: "Palmeiras", campeonato: "Campeonato Brasileiro", poster: "poster3.jpg", imagem_twitter: "partida3.jpg" },
+        { data: new Date("2024-05-14"), time1: "Fluminense", time2: "Bragantino", campeonato: "Campeonato Brasileiro", poster: "poster4.jpg", imagem_twitter: "partida4.jpg" },
+        { data: new Date("2024-05-14"), time1: "Vasco da Gama", time2: "Grêmio", campeonato: "Campeonato Brasileiro", poster: "poster5.jpg", imagem_twitter: "partida5.jpg" },
+        { data: new Date("2024-05-14"), time1: "Corinthians", time2: "Atlético-MG", campeonato: "Campeonato Brasileiro", poster: "poster6.jpg", imagem_twitter: "partida6.jpg" },
+        { data: new Date("2024-05-14"), time1: "São Paulo", time2: "Fortaleza", campeonato: "Campeonato Brasileiro", poster: "poster7.jpg", imagem_twitter: "partida7.jpg" },
+        { data: new Date("2024-05-14"), time1: "Athletico-PR", time2: "Cuiabá", campeonato: "Campeonato Brasileiro", poster: "poster8.jpg", imagem_twitter: "partida8.jpg" },
+        { data: new Date("2024-05-14"), time1: "Atlético-GO", time2: "Flamengo", campeonato: "Campeonato Brasileiro", poster: "poster9.jpg", imagem_twitter: "partida9.jpg" },
+        { data: new Date("2024-05-14"), time1: "Criciúma", time2: "Juventude", campeonato: "Campeonato Brasileiro", poster: "poster10.jpg", imagem_twitter: "partida10.jpg" }
     ];
 
     // Cria o container para as partidas
@@ -49,14 +49,14 @@ window.addEventListener("load", function() {
 
         // Adiciona um evento de clique ao botão de compartilhamento do Twitter
         btnCompartilharTwitter.addEventListener("click", function() {
-            // URL base para o tweet
-            var tweetUrl = "https://twitter.com/compose/tweet";
-
+            // URL da imagem para o Twitter
+            var urlImagemTwitter = partida.imagem_twitter;
+            
             // Texto do tweet
-            var tweetText = "Acabei de assistir a partida " + partida.time1 + " x " + partida.time2 + " pelo " + partida.campeonato + " no @futeboltracker";
+            var textoTweet = "Acabei de assistir ao jogo entre " + partida.time1 + " x " + partida.time2 + " no " + partida.campeonato + "! ⚽ @futeboltracker";
 
-            // Abre a janela de compartilhamento do Twitter
-            window.open(tweetUrl + "?text=" + encodeURIComponent(tweetText), "_blank");
+            // Chamada à função para postar no Twitter
+            window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(textoTweet), "_blank");
         });
     });
 });
