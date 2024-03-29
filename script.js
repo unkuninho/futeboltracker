@@ -1,4 +1,29 @@
 window.addEventListener("load", function() {
+    // Registro de apelidos dos times
+    var apelidos = {
+        "Internacional": "Colorado",
+        "Bahia": "Tricolor de Aço",
+        "Cruzeiro": "Raposa",
+        "Botafogo": "Fogão",
+        "Vitória": "Leão",
+        "Palmeiras": "Porco",
+        "Fluminense": "Fluzão",
+        "Bragantino": "Massa Bruta",
+        "Vasco da Gama": "Gigante da Colina",
+        "Grêmio": "Tricolor Gaúcho",
+        "Corinthians": "Timão",
+        "Atlético-MG": "Galo",
+        "São Paulo": "Trikas",
+        "Fortaleza": "Leão do Pici",
+        "Athletico-PR": "Furacão",
+        "Cuiabá": "Dourado",
+        "Atlético-GO": "Dragão",
+        "Flamengo": "Mengão",
+        "Criciúma": "Tigre",
+        "Juventude": "Papagaio de Ouro"
+        // Adicione outros times conforme necessário
+    };
+
     // Array de informações das partidas
     var partidas = [
         { data: new Date("2024-05-14"), time1: "Internacional", time2: "Bahia", campeonato: "Campeonato Brasileiro", poster: "poster1.jpg", imagem_twitter: "partida1.jpg" },
@@ -41,22 +66,37 @@ window.addEventListener("load", function() {
         imgElement.alt = 'Poster da Partida ' + (index + 1);
         partidaElement.appendChild(imgElement);
 
-        // Cria e adiciona o botão de compartilhamento do Twitter
-        var btnCompartilharTwitter = document.createElement('button');
-        btnCompartilharTwitter.classList.add('compartilharTwitter');
-        btnCompartilharTwitter.textContent = 'Compartilhar no Twitter';
-        partidaElement.appendChild(btnCompartilharTwitter);
+        // Cria e adiciona os botões de compartilhamento do Twitter
+        var btnCompartilharTime1 = document.createElement('button');
+        btnCompartilharTime1.textContent = 'Compartilhar ' + apelidos[partida.time1] + ' no Twitter';
+        partidaElement.appendChild(btnCompartilharTime1);
 
-        // Adiciona um evento de clique ao botão de compartilhamento do Twitter
-        btnCompartilharTwitter.addEventListener("click", function() {
-            // URL da imagem para o Twitter
-            var urlImagemTwitter = partida.imagem_twitter;
-            
-            // Texto do tweet
-            var textoTweet = "Acabei de assistir ao jogo entre " + partida.time1 + " x " + partida.time2 + " no " + partida.campeonato + "! ⚽ @futeboltracker";
+        var btnCompartilharTime2 = document.createElement('button');
+        btnCompartilharTime2.textContent = 'Compartilhar ' + apelidos[partida.time2] + ' no Twitter';
+        partidaElement.appendChild(btnCompartilharTime2);
 
-            // Chamada à função para postar no Twitter
-            window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(textoTweet), "_blank");
+        var btnCompartilharAssistido = document.createElement('button');
+        btnCompartilharAssistido.textContent = 'Assisti à partida!';
+        partidaElement.appendChild(btnCompartilharAssistido);
+
+        // Adiciona eventos de clique aos botões de compartilhamento
+        btnCompartilharTime1.addEventListener("click", function() {
+            compartilharNoTwitter(partida.time1, partida.time2, partida.campeonato);
+        });
+
+        btnCompartilharTime2.addEventListener("click", function() {
+            compartilharNoTwitter(partida.time2, partida.time1, partida.campeonato);
+        });
+
+        btnCompartilharAssistido.addEventListener("click", function() {
+            compartilharNoTwitter('', '', partida.campeonato);
         });
     });
+
+    // Função para compartilhar no Twitter
+    function compartilharNoTwitter(timeVencedor, timePerdedor, campeonato) {
+        var apelidoVencedor = apelidos[timeVencedor] || '';
+        var textoTweet = 'Acabei de assistir ao jogo entre ' + timeVencedor + ' x ' + timePerdedor + ' no ' + campeonato + '! Deu ' + apelidoVencedor + ' ⚽ @futeboltracker';
+        window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(textoTweet), "_blank");
+    }
 });
