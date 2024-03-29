@@ -1,9 +1,8 @@
-function redirectToTwitter(partida, imagem) {
+function redirectToTwitter(partida) {
   var mensagem = "Acabou de assistir a partida " + partida;
-  var imagemUrl = window.location.href + imagem;
-  var tweetText = mensagem + " " + imagemUrl;
 
-  var tweetUrl = "https://twitter.com/compose/tweet?text=" + encodeURIComponent(tweetText);
+  // Abra a página de composição do tweet com a mensagem
+  var tweetUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(mensagem);
   
   window.open(tweetUrl, "_blank");
 }
