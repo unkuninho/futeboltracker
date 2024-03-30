@@ -3,11 +3,11 @@ window.addEventListener("load", function() {
     var apelidos = {
         "Internacional": "Colorado",
         "Bahia": "Tricolor de Aço",
-        "Cruzeiro": "Raposa",
+        "Cruzeiro": "Cabuloso",
         "Botafogo": "Fogão",
         "Vitória": "Leão",
         "Palmeiras": "Porco",
-        "Fluminense": "Fluzão",
+        "Fluminense": "Fluzao",
         "Bragantino": "Massa Bruta",
         "Vasco da Gama": "Gigante da Colina",
         "Grêmio": "Tricolor Gaúcho",
@@ -68,11 +68,11 @@ window.addEventListener("load", function() {
 
         // Cria e adiciona os botões de compartilhamento do Twitter
         var btnCompartilharTime1 = document.createElement('button');
-        btnCompartilharTime1.textContent = 'Compartilhar ' + apelidos[partida.time1] + ' no Twitter';
+        btnCompartilharTime1.textContent = 'Tweetar como ' + apelidos[partida.time1];
         partidaElement.appendChild(btnCompartilharTime1);
 
         var btnCompartilharTime2 = document.createElement('button');
-        btnCompartilharTime2.textContent = 'Compartilhar ' + apelidos[partida.time2] + ' no Twitter';
+        btnCompartilharTime2.textContent = 'Tweetar como ' + apelidos[partida.time2];
         partidaElement.appendChild(btnCompartilharTime2);
 
         var btnCompartilharAssistido = document.createElement('button');
@@ -96,7 +96,7 @@ window.addEventListener("load", function() {
     // Função para compartilhar no Twitter
     function compartilharNoTwitter(timeVencedor, timePerdedor, campeonato) {
         var apelidoVencedor = apelidos[timeVencedor] || '';
-        var textoTweet = 'Acabei de assistir ao jogo entre ' + timeVencedor + ' x ' + timePerdedor + ' no ' + campeonato + '! Deu ' + apelidoVencedor + ' ⚽ @futeboltracker';
+        var textoTweet = 'Acabei de assistir ao jogo entre ' + timeVencedor + ' x ' + timePerdedor + ' no ' + campeonato + '! Deu ' + apelidoVencedor + ' ⚽ @futeboltracker' + '#Futeboltracker';
         window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(textoTweet), "_blank");
     }
 });
