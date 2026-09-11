@@ -53,19 +53,17 @@ jobs:
           Copy-Item pes6extended\README_INSTALACAO.txt package\README_INSTALACAO.txt
           Copy-Item pes6extended\src\dllmain.cpp package\dllmain.cpp
           Copy-Item pes6extended\CMakeLists.txt package\CMakeLists.txt
-          Compress-Archive -Path package\* -DestinationPath PES6Extended_v0.1.zip -Force
 
       - name: Show package
         run: |
           Get-ChildItem package | Format-Table Name,Length
           Get-FileHash package\PES6Extended.asi -Algorithm SHA256
           Get-FileHash package\d3d9.dll -Algorithm SHA256
-          Get-FileHash PES6Extended_v0.1.zip -Algorithm SHA256
 
-      - name: Upload final ZIP
+      - name: Upload final package
         uses: actions/upload-artifact@v4
         with:
-          name: PES6Extended_v0.1
-          path: PES6Extended_v0.1.zip
+          name: PES6Extended_v0.1_FINAL
+          path: package/*
           if-no-files-found: error
           retention-days: 30
