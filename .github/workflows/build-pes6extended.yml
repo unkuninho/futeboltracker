@@ -49,6 +49,7 @@ jobs:
           Copy-Item pes6extended\build\Release\PES6Extended.asi package\PES6Extended.asi
           Copy-Item pes6extended\PES6Extended.ini package\PES6Extended.ini
           Copy-Item pes6extended\INSTALAR_NO_PES6.bat package\INSTALAR_NO_PES6.bat
+          Copy-Item pes6extended\DESINSTALAR_PES6EXTENDED.bat package\DESINSTALAR_PES6EXTENDED.bat
           Copy-Item pes6extended\README_INSTALACAO.txt package\README_INSTALACAO.txt
           Copy-Item pes6extended\src\dllmain.cpp package\dllmain.cpp
           Copy-Item pes6extended\CMakeLists.txt package\CMakeLists.txt
