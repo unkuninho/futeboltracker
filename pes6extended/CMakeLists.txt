@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.20)
+project(PES6Extended VERSION 0.1 LANGUAGES CXX)
+
+if(NOT WIN32)
+  message(FATAL_ERROR "PES6Extended must be built on Windows.")
+endif()
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  message(FATAL_ERROR "Build as Win32/x86. PES6 is a 32-bit process.")
+endif()
+
+add_library(PES6Extended SHARED src/dllmain.cpp)
+target_compile_features(PES6Extended PRIVATE cxx_std_17)
+target_compile_definitions(PES6Extended PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX)
+set_target_properties(PES6Extended PROPERTIES PREFIX "" SUFFIX ".asi" OUTPUT_NAME "PES6Extended")
+if(MSVC)
+  target_compile_options(PES6Extended PRIVATE /W4 /EHsc)
+endif()
