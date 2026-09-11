@@ -1,0 +1,3 @@
+PES6Extended v0.1
+Build target: Win32/x86
+Install target: D:\PES 6
