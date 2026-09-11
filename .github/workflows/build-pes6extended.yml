@@ -1,0 +1,65 @@
+name: Build PES6Extended Win32
+
+on:
+  push:
+    branches:
+      - pes6extended-build
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Win32
+        run: cmake -S pes6extended -B pes6extended/build -A Win32
+
+      - name: Build Release
+        run: cmake --build pes6extended/build --config Release
+
+      - name: Verify PE architecture
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars32.bat"
+          dumpbin /headers pes6extended\build\Release\PES6Extended.asi | findstr /i "machine"
+
+      - name: Download Ultimate ASI Loader Win32 d3d9
+        run: |
+          $url = 'https://github.com/ThirteenAG/Ultimate-ASI-Loader/releases/download/Win32-latest/d3d9-Win32.zip'
+          Invoke-WebRequest -Uri $url -OutFile asi-loader.zip
+          Expand-Archive -Path asi-loader.zip -DestinationPath asi-loader -Force
+          $loader = Get-ChildItem -Path asi-loader -Recurse -Filter d3d9.dll | Select-Object -First 1
+          if (-not $loader) { throw 'd3d9.dll Win32 nao encontrado no pacote do Ultimate ASI Loader.' }
+          New-Item -ItemType Directory -Force -Path package | Out-Null
+          Copy-Item $loader.FullName package\d3d9.dll
+
+      - name: Assemble package
+        run: |
+          Copy-Item pes6extended\build\Release\PES6Extended.asi package\PES6Extended.asi
+          Copy-Item pes6extended\PES6Extended.ini package\PES6Extended.ini
+          Copy-Item pes6extended\INSTALAR_NO_PES6.bat package\INSTALAR_NO_PES6.bat
+          Copy-Item pes6extended\README_INSTALACAO.txt package\README_INSTALACAO.txt
+          Copy-Item pes6extended\src\dllmain.cpp package\dllmain.cpp
+          Copy-Item pes6extended\CMakeLists.txt package\CMakeLists.txt
+          Compress-Archive -Path package\* -DestinationPath PES6Extended_v0.1.zip -Force
+
+      - name: Show package
+        run: |
+          Get-ChildItem package | Format-Table Name,Length
+          Get-FileHash package\PES6Extended.asi -Algorithm SHA256
+          Get-FileHash package\d3d9.dll -Algorithm SHA256
+          Get-FileHash PES6Extended_v0.1.zip -Algorithm SHA256
+
+      - name: Upload final ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: PES6Extended_v0.1
+          path: PES6Extended_v0.1.zip
+          if-no-files-found: error
+          retention-days: 30
